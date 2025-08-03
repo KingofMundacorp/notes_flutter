@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "493878936025",
+    "project_id": "mundacorpnotes2",
+    "storage_bucket": "mundacorpnotes2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:493878936025:android:1d818b7aa9a6f6673f99c8",
+        "android_client_info": {
+          "package_name": "com.munda.mynotes"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCc_2TveyapvIs-QC7ynST9k23--Rqr7gw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
