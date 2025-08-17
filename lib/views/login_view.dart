@@ -1,9 +1,7 @@
 // ignore_for_file: unreachable_switch_default
 
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../firebase_options.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -56,7 +54,7 @@ class _LoginViewState extends State<LoginView> {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 32),
-        
+
               // Email Field
               TextField(
                 controller: _email,
@@ -73,7 +71,7 @@ class _LoginViewState extends State<LoginView> {
                 ),
               ),
               const SizedBox(height: 20),
-        
+
               // Password Field
               TextField(
                 controller: _password,
@@ -90,7 +88,7 @@ class _LoginViewState extends State<LoginView> {
                 ),
               ),
               const SizedBox(height: 32),
-        
+
               // Register Button
               SizedBox(
                 height: 50,
@@ -105,7 +103,7 @@ class _LoginViewState extends State<LoginView> {
                             password: password,
                           );
                       // print(thisCredential);
-        
+
                       // Success message
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
@@ -114,6 +112,10 @@ class _LoginViewState extends State<LoginView> {
                           ),
                         ),
                       );
+                      Navigator.of(
+                        context,
+                      ).pushNamedAndRemoveUntil('/home/', (route) => false);
+                      
                     } on FirebaseAuthException catch (e) {
                       if (e.code == 'invalid-credential') {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -123,7 +125,9 @@ class _LoginViewState extends State<LoginView> {
                         );
                       } else if (e.code == 'invalid-email') {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("The email format isn't correct")),
+                          SnackBar(
+                            content: Text("The email format isn't correct"),
+                          ),
                         );
                       }
                     } catch (e) {

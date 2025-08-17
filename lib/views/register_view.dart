@@ -1,7 +1,7 @@
-import 'package:firebase_core/firebase_core.dart';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../firebase_options.dart';
+
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
@@ -149,9 +149,7 @@ class _RegisterViewState extends State<RegisterView> {
                 height: 50,
                 child: TextButton.icon(
                   onPressed: () async {
-                    Navigator.of(
-                      context,
-                    ).pushNamedAndRemoveUntil('/login/', (route) => false);
+                    Navigator.of(context).pushNamedAndRemoveUntil('/login/', (route) => false);
                   },
                   icon: const Icon(Icons.person_add, color: Colors.blueAccent),
                   label: const Text(
