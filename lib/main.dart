@@ -3,11 +3,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:mynotes/constants/routes.dart';
 import 'package:mynotes/firebase_options.dart';
 import 'package:mynotes/views/login_view.dart';
 import 'package:mynotes/views/register_view.dart';
 import 'package:mynotes/views/verify_email_view.dart';
-import 'dart:developer' as devtools show log;
+// import 'dart:developer' as devtools show log;
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,9 +20,9 @@ void main() {
       ),
       home: const HomePage(),
       routes: {
-        '/login/': (context) => const LoginView(),
-        '/register/': (context) => const RegisterView(),
-        '/home/':(context) => const HomePage(),
+        loginRoute: (context) => const LoginView(),
+        registerRoute: (context) => const RegisterView(),
+        homePageRoute: (context) => const HomePage(),
       },
     ),
   );
@@ -54,10 +55,10 @@ class HomePage extends StatelessWidget {
 
             if (mtumiaji != null) {
               if (mtumiaji.emailVerified) {
-                // print('Wewe ni Mtumiaji aliyethibitishwa');
+                // devtools.log('Wewe ni Mtumiaji aliyethibitishwa');
                 return NotesView();
               } else {
-                // print('Tafadhali thibitisha barua pepe yako');
+                // devtools.log('Tafadhali thibitisha barua pepe yako');
                 return VerifyEmailView();
               }
             } else {
@@ -85,6 +86,7 @@ class _NotesViewState extends State<NotesView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 217, 204, 154),
       appBar: AppBar(
         title: const Text(
           "My Notes",
@@ -103,7 +105,9 @@ class _NotesViewState extends State<NotesView> {
                     final showLogOut = await showLogOutDialog(context);
                     if (showLogOut) {
                       await FirebaseAuth.instance.signOut();
-                      Navigator.of(context).pushNamedAndRemoveUntil('/login/', (_) => false);
+                      Navigator.of(
+                        context,
+                      ).pushNamedAndRemoveUntil(loginRoute, (_) => false);
                     }
                 }
               },

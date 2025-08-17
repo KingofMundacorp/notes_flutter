@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mynotes/constants/routes.dart';
+// import 'dart:developer' as devtools show log;
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -102,7 +104,7 @@ class _LoginViewState extends State<LoginView> {
                             email: email,
                             password: password,
                           );
-                      // print(thisCredential);
+                      // devtools.log(thisCredential);
 
                       // Success message
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -114,8 +116,8 @@ class _LoginViewState extends State<LoginView> {
                       );
                       Navigator.of(
                         context,
-                      ).pushNamedAndRemoveUntil('/home/', (route) => false);
-                      
+                      ).pushNamedAndRemoveUntil(homePageRoute, (route) => false);
+
                     } on FirebaseAuthException catch (e) {
                       if (e.code == 'invalid-credential') {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -153,7 +155,7 @@ class _LoginViewState extends State<LoginView> {
                   onPressed: () async {
                     Navigator.of(
                       context,
-                    ).pushNamedAndRemoveUntil('/register/', (route) => false);
+                    ).pushNamedAndRemoveUntil(registerRoute, (route) => false);
                   },
                   icon: const Icon(Icons.person_add, color: Colors.blueAccent),
                   label: const Text(

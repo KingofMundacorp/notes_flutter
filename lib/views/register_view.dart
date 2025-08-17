@@ -1,7 +1,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:developer' as devtools show log;
 
+import 'package:mynotes/constants/routes.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
@@ -126,7 +128,7 @@ class _RegisterViewState extends State<RegisterView> {
                           SnackBar(content: Text('The password is too weak')),
                         );
                       } else {
-                        print(e.code);
+                        devtools.log(e.code);
                       }
                     } catch (e) {
                       // Catch other errors
@@ -149,7 +151,7 @@ class _RegisterViewState extends State<RegisterView> {
                 height: 50,
                 child: TextButton.icon(
                   onPressed: () async {
-                    Navigator.of(context).pushNamedAndRemoveUntil('/login/', (route) => false);
+                    Navigator.of(context).pushNamedAndRemoveUntil(loginRoute, (route) => false);
                   },
                   icon: const Icon(Icons.person_add, color: Colors.blueAccent),
                   label: const Text(
