@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mynotes/constants/routes.dart';
+import 'package:mynotes/utilities/show_error_dialog.dart';
 // import 'dart:developer' as devtools show log;
 
 class LoginView extends StatefulWidget {
@@ -114,29 +115,32 @@ class _LoginViewState extends State<LoginView> {
                           ),
                         ),
                       );
-                      Navigator.of(
-                        context,
-                      ).pushNamedAndRemoveUntil(homePageRoute, (route) => false);
-
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                        homePageRoute,
+                        (route) => false,
+                      );
                     } on FirebaseAuthException catch (e) {
                       if (e.code == 'invalid-credential') {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('The Credentials used are incorrect'),
-                          ),
+                        
+                        await showErrorDialog(
+                          context,
+                          'The credentials used are not correct',
                         );
                       } else if (e.code == 'invalid-email') {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text("The email format isn't correct"),
-                          ),
+                        
+                        await showErrorDialog(
+                          context,
+                          'The email format is not correct',
+                        );
+                      } else {
+                        await showErrorDialog(
+                          context,
+                          'Unexpected error: ${e.code}',
                         );
                       }
                     } catch (e) {
-                      // Catch other errors
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Unexpected error: $e')),
-                      );
+                      // Catch other errors not related to Firebase
+                      await showErrorDialog(context, e.toString());
                     }
                   },
                   icon: const Icon(Icons.person_add),
@@ -185,3 +189,4 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 }
+
